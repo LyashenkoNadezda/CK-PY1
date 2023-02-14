@@ -1,13 +1,15 @@
 class BaseDog:
     """Создание и подготовка к работе базового класса Собака"""
-    def __init__(self):
+    def __init__(self, name: str, size: float, purpose: list):
         """
-        Здесь и далее все атрибуты являются защищенными, так как данные по собакам после занесения доступны только
-        в режиме чтения, для ознакомления, но не для редактирования
         :param name: имя собаки
-        :param size: высота в холке  собаки в метрах
+        :param size: высота в холке собаки в метрах
         :param purpose: назначение собаки
         """
+        self.name = name
+        self.size = size
+        self.purpose = purpose
+
     @property
     def name(self):
         """Создание геттера для атрибута name"""
@@ -43,7 +45,7 @@ class BaseDog:
         return self._purpose
 
     @purpose.setter
-    def purpose(self, purpose: str):
+    def purpose(self, purpose: list):
         """Создание cеттера для атрибута purpose с проверкой purpose на то, что он является одной из заданных в
         списке purposes строк"""
         purposes = ['охотничья', 'служебная', 'терьер', 'декоративная', 'пастушья']
@@ -58,7 +60,7 @@ class BaseDog:
     def __repr__(self) -> str:
         """Создание метода, выводящего «официальный» текстовый образ объекта, который можно использовать для
         воссоздания этого объекта"""
-        return f"{self.__class__.__name__}(name={self._name!r}, size={self._size!r}, purpose={self._purpose!r}"
+        return f"{self.__class__.__name__}(name={self._name!r}, size={self._size!r}, purpose={self._purpose})"
 
     def size_in_feet(self) -> float:
         """Создание метода, переводящего значение высоты собаки в холке size из метров в футы; на случай
@@ -73,18 +75,18 @@ class BaseDog:
 
 class FrenchBulldog(BaseDog):
     """Создание и подготовка к работе производного класса Французский бульдог"""
-    def __init__(self):
+    def __init__(self, name: str, size: float, purpose: list):
         """
         :param name: наследуется от базового класса Собака
         :param size: наследуется от базового класса Собака
         :param purpose: наследуется от базового класса Собака
         """
-        super().__init__()
+        super().__init__(name, size, purpose)
 
 
 class AfghanHound(BaseDog):
     """Создание и подготовка к работе производного класса Афганская борзая"""
-    def __init__(self):
+    def __init__(self, name: str, size: float, purpose: list, tail_length: float, tail_shape: list):
         """
         :param name: наследуется от базового класса Собака
         :param size: наследуется от базового класса Собака
@@ -92,7 +94,9 @@ class AfghanHound(BaseDog):
         :param tail_length: длина хвоста собаки в метрах
         :param tail_shape: форма хвоста собаки
         """
-        super().__init__()
+        super().__init__(name, size, purpose)
+        self.tail_length = tail_length
+        self.tail_shape = tail_shape
 
     @property
     def tail_length(self):
@@ -115,7 +119,7 @@ class AfghanHound(BaseDog):
         return self._tail_shape
 
     @tail_shape.setter
-    def tail_shape(self, tail_shape: str):
+    def tail_shape(self, tail_shape: list):
         """Создание cеттера для атрибута tail_shape с проверкой tail_shape на то, что он является одним из заданных в
         списке shapes строк"""
         shapes = ['саблевидный', 'крючок', 'полено', 'перо', 'прут', 'серп', 'кольцо', 'двойное кольцо']
@@ -133,7 +137,7 @@ class AfghanHound(BaseDog):
         """Перегрузка метода, выводящего «официальный» текстовый образ объекта, который можно использовать для
         воссоздания этого объекта, так как в вывод добавляются два новых параметра: tail_length и _tail_shape"""
         return f"{self.__class__.__name__}(name={self._name!r}, size={self._size!r}, purpose={self._purpose!r}, " \
-               f"tail_length={self._tail_length!r}, tail_shape={self._tail_shape!r}"
+               f"tail_length={self._tail_length!r}, tail_shape={self._tail_shape})"
 
     def capitalize_name(self) -> str:
         """Перегрузка метода, переводящего имя собаки name в слово, начинающееся с заглавной буквы с последующими
@@ -142,17 +146,8 @@ class AfghanHound(BaseDog):
         return self.name.upper()
 
 
-dog1 = FrenchBulldog()
-dog1.name = 'арни'
-dog1.size = 0.381
-dog1.purpose = 'декоративная'
-
-dog2 = AfghanHound()
-dog2.name = 'Шелли'
-dog2.size = 0.607
-dog2.purpose = 'охотничья'
-dog2.tail_length = 0.303
-dog2.tail_shape = 'серп'
+dog1 = FrenchBulldog('арни', 0.381, 'декоративная')
+dog2 = AfghanHound('Шелли', 0.607, 'охотничья', 0.303, 'серп')
 
 print(dog1.__str__())
 print(dog1.__repr__())
