@@ -20,8 +20,8 @@ class BaseDog:
         """Создание cеттера для атрибута name с проверкой name на то, что он состоит из 1-200 букв"""
         if not name.isalpha():
             raise TypeError("Имя должно состоять из букв!")
-        if 0 <= len(name) > 200:
-            raise ValueError("Длина имени должна быть в пределах 1-200 букв!")
+        if len(name) > 200:
+            raise ValueError("Длина имени должна не превышать 200 букв!")
         self._name = name
 
     @property
@@ -35,8 +35,8 @@ class BaseDog:
         плавающей точкой, не большим 2"""
         if not isinstance(size, float):
             raise TypeError("Высота в холке должна быть типа float!")
-        if 0 <= size >= 2:
-            raise ValueError("Высота в холке должна быть больше 0 и меньше 2 метров!")
+        if size <= 0 or size > 2:
+            raise ValueError("Высота в холке должна быть положительной величиной и не превышать 2 м!")
         self._size = size
 
     @property
@@ -109,8 +109,8 @@ class AfghanHound(BaseDog):
         числом с плавающей точкой, не большим 1"""
         if not isinstance(tail_length, float):
             raise TypeError("Длина хвоста должна быть типа float!")
-        if 0 <= tail_length >= 1:
-            raise ValueError("Длина хвоста должна быть больше 0 и меньше 1 метра!")
+        if tail_length <= 0 or tail_length > 1:
+            raise ValueError("Высота в холке должна быть положительной величиной и не превышать 1 м!")
         self._tail_length = tail_length
 
     @property
